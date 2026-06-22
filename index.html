@@ -44,11 +44,26 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=20260622-3"
+    href="styles.css?v=20260622-4"
   >
 
   <script
     src="https://cdn.jsdelivr.net/npm/sweetalert2@11"
+    defer
+  ></script>
+
+  <script
+    src="config.js?v=20260622-4"
+    defer
+  ></script>
+
+  <script
+    src="api.js?v=20260622-4"
+    defer
+  ></script>
+
+  <script
+    src="app.js?v=20260622-4"
     defer
   ></script>
 </head>
@@ -61,16 +76,17 @@
   >
 
     <!-- =====================================================
-         LOGIN
+         LOGIN VIEW
     ====================================================== -->
     <section
       id="loginView"
       class="login-view"
       aria-labelledby="loginTitle"
     >
-      <div class="login-panel">
+      <div class="login-card">
 
-        <div class="login-logo-zone">
+        <div class="login-brand">
+
           <img
             id="loginLogo"
             class="login-logo"
@@ -78,26 +94,34 @@
             alt="S&LP Logo"
             decoding="async"
           >
+
+          <div class="login-brand-copy">
+            <span class="login-badge">
+              WEBSITE PORTAL
+            </span>
+
+            <h1
+              id="loginTitle"
+              class="login-title"
+            >
+              S&amp;LP Portal
+            </h1>
+
+            <p class="login-department">
+              S&amp;LP Security &amp; Lossprevention
+            </p>
+          </div>
+
         </div>
 
-        <div class="login-heading">
-          <span class="login-badge">
-            WEBSITE PORTAL
-          </span>
 
-          <h1
-            id="loginTitle"
-            class="login-title"
-          >
-            S&amp;LP Portal
-          </h1>
+        <div class="login-intro">
+          <h2>
+            เข้าสู่ระบบ
+          </h2>
 
-          <p class="login-department">
-            Security &amp; Lossprevention
-          </p>
-
-          <p class="login-description">
-            ศูนย์รวมระบบและเว็บไซต์สำหรับการปฏิบัติงาน
+          <p>
+            กรอกรหัสผ่านเพื่อเปิดเว็บไซต์สำหรับการปฏิบัติงาน
           </p>
         </div>
 
@@ -108,6 +132,7 @@
           autocomplete="off"
           novalidate
         >
+
           <label
             class="form-label"
             for="passwordInput"
@@ -220,10 +245,7 @@
             class="primary-button login-button"
             type="submit"
           >
-            <span
-              id="loginButtonText"
-              class="button-text"
-            >
+            <span id="loginButtonText">
               เข้าสู่ระบบ
             </span>
 
@@ -234,12 +256,13 @@
               hidden
             ></span>
           </button>
+
         </form>
 
 
-        <div class="login-bottom-row">
+        <div class="login-status-grid">
 
-          <div class="system-status">
+          <div class="status-chip">
             <span
               id="systemStatusDot"
               class="status-dot is-checking"
@@ -251,7 +274,7 @@
             </span>
           </div>
 
-          <div class="authorized-status">
+          <div class="status-chip authorized-chip">
             <svg
               viewBox="0 0 24 24"
               width="15"
@@ -267,7 +290,7 @@
             </svg>
 
             <span>
-              เฉพาะผู้ได้รับอนุญาต
+              ผู้ได้รับอนุญาตเท่านั้น
             </span>
           </div>
 
@@ -278,7 +301,7 @@
 
 
     <!-- =====================================================
-         PORTAL
+         PORTAL VIEW
     ====================================================== -->
     <section
       id="portalView"
@@ -290,6 +313,7 @@
         <div class="portal-header-inner">
 
           <div class="portal-brand">
+
             <img
               id="portalLogo"
               class="portal-logo"
@@ -298,7 +322,7 @@
               decoding="async"
             >
 
-            <div class="portal-brand-text">
+            <div class="portal-brand-copy">
               <h1 class="portal-brand-title">
                 S&amp;LP Portal
               </h1>
@@ -307,6 +331,7 @@
                 Security &amp; Lossprevention
               </p>
             </div>
+
           </div>
 
 
@@ -327,7 +352,7 @@
                 S
               </span>
 
-              <span class="user-info">
+              <span class="user-copy">
                 <span class="user-label">
                   ผู้ใช้งาน
                 </span>
@@ -429,10 +454,11 @@
           </div>
 
 
-          <section
-            class="portal-summary"
+          <div
+            class="summary-grid"
             aria-label="สรุปรายการเว็บไซต์"
           >
+
             <div class="summary-chip">
               <span
                 class="summary-icon"
@@ -455,7 +481,7 @@
                 </svg>
               </span>
 
-              <span class="summary-info">
+              <span class="summary-copy">
                 <span class="summary-label">
                   เว็บไซต์
                 </span>
@@ -490,7 +516,7 @@
                 </svg>
               </span>
 
-              <span class="summary-info">
+              <span class="summary-copy">
                 <span class="summary-label">
                   หมวดหมู่
                 </span>
@@ -503,7 +529,8 @@
                 </strong>
               </span>
             </div>
-          </section>
+
+          </div>
 
         </section>
 
@@ -620,18 +647,16 @@
         <section class="website-list-section">
 
           <div class="website-list-header">
-            <div>
-              <h3 class="website-list-title">
-                รายการเว็บไซต์
-              </h3>
+            <h3 class="website-list-title">
+              รายการเว็บไซต์
+            </h3>
 
-              <p
-                id="resultCountText"
-                class="result-count-text"
-              >
-                กำลังโหลดข้อมูล
-              </p>
-            </div>
+            <p
+              id="resultCountText"
+              class="result-count-text"
+            >
+              กำลังโหลดข้อมูล
+            </p>
           </div>
 
 
@@ -749,18 +774,6 @@
 
   </main>
 
-
-  <script
-    src="config.js?v=20260622-3"
-  ></script>
-
-  <script
-    src="api.js?v=20260622-3"
-  ></script>
-
-  <script
-    src="app.js?v=20260622-3"
-  ></script>
 
   <noscript>
     <div class="noscript-message">
