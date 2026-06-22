@@ -1,27 +1,37 @@
 /************************************************************
  * app.js
  * S&LP Website Portal
- * SweetAlert2 notifications
+ *
+ * ใช้งานร่วมกับ:
+ * - config.js
+ * - api.js
+ * - SweetAlert2
  ************************************************************/
 
 (function (window, document) {
   'use strict';
 
-  const CONFIG = window.APP_CONFIG || {};
-  const API = window.SLP_API || null;
-  const ALL_CATEGORY = 'ทั้งหมด';
+  const CONFIG =
+    window.APP_CONFIG || {};
+
+  const API =
+    window.SLP_API || null;
+
+  const ALL_CATEGORY =
+    'ทั้งหมด';
 
   const state = {
     websites: [],
     categories: [],
-    activeCategory: ALL_CATEGORY,
+    activeCategory:
+      ALL_CATEGORY,
     searchText: '',
-    loading: false,
-    loggingIn: false,
+    isLoading: false,
+    isLoggingIn: false,
     sessionTimer: null
   };
 
-  const el = {};
+  const elements = {};
 
 
   document.addEventListener(
@@ -29,6 +39,10 @@
     initializeApplication
   );
 
+
+  /************************************************************
+   * INITIALIZE
+   ************************************************************/
 
   async function initializeApplication() {
     cacheElements();
@@ -46,7 +60,8 @@
       await showAlert({
         icon: 'error',
         title: 'เปิดระบบไม่สำเร็จ',
-        text: 'ไม่พบระบบเชื่อมต่อ API กรุณาตรวจสอบไฟล์ api.js'
+        text:
+          'ไม่พบระบบเชื่อมต่อ API กรุณาตรวจสอบไฟล์ api.js'
       });
 
       return;
@@ -54,7 +69,8 @@
 
     checkHealth();
 
-    const session = API.getSession();
+    const session =
+      API.getSession();
 
     if (session) {
       setCurrentUser(
@@ -72,11 +88,12 @@
 
     showLoginView();
 
-    window.setTimeout(function () {
-      if (el.passwordInput) {
-        el.passwordInput.focus();
-      }
-    }, 200);
+    window.setTimeout(
+      function () {
+        focusPassword();
+      },
+      180
+    );
   }
 
 
@@ -125,29 +142,37 @@
       'retryButton'
     ];
 
-    ids.forEach(function (id) {
-      el[id] =
-        document.getElementById(id);
-    });
+    ids.forEach(
+      function (id) {
+        elements[id] =
+          document.getElementById(id);
+      }
+    );
   }
 
 
   function applyConfig() {
     const logoUrl =
-      normalizeText(CONFIG.LOGO_URL) ||
+      normalizeText(
+        CONFIG.LOGO_URL
+      ) ||
       'https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY';
 
-    if (el.loginLogo) {
-      el.loginLogo.src = logoUrl;
+    if (elements.loginLogo) {
+      elements.loginLogo.src =
+        logoUrl;
     }
 
-    if (el.portalLogo) {
-      el.portalLogo.src = logoUrl;
+    if (elements.portalLogo) {
+      elements.portalLogo.src =
+        logoUrl;
     }
 
     document.title =
       (
-        normalizeText(CONFIG.APP_NAME) ||
+        normalizeText(
+          CONFIG.APP_NAME
+        ) ||
         'S&LP Portal'
       ) +
       ' | Website Portal';
@@ -159,34 +184,32 @@
    ************************************************************/
 
   function bindEvents() {
-    if (el.loginForm) {
-      el.loginForm.addEventListener(
+    if (elements.loginForm) {
+      elements.loginForm.addEventListener(
         'submit',
         handleLogin
       );
     }
 
-    if (el.passwordInput) {
-      el.passwordInput.addEventListener(
+    if (elements.passwordInput) {
+      elements.passwordInput.addEventListener(
         'input',
         function () {
           setLoginMessage('');
-          el.passwordInput.classList.remove(
-            'input-error'
-          );
+          markPasswordError(false);
         }
       );
     }
 
-    if (el.togglePasswordButton) {
-      el.togglePasswordButton.addEventListener(
+    if (elements.togglePasswordButton) {
+      elements.togglePasswordButton.addEventListener(
         'click',
-        togglePassword
+        togglePasswordVisibility
       );
     }
 
-    if (el.refreshButton) {
-      el.refreshButton.addEventListener(
+    if (elements.refreshButton) {
+      elements.refreshButton.addEventListener(
         'click',
         function () {
           loadWebsites(true);
@@ -194,8 +217,8 @@
       );
     }
 
-    if (el.retryButton) {
-      el.retryButton.addEventListener(
+    if (elements.retryButton) {
+      elements.retryButton.addEventListener(
         'click',
         function () {
           loadWebsites(false);
@@ -203,124 +226,48 @@
       );
     }
 
-    if (el.searchInput) {
-      el.searchInput.addEventListener(
+    if (elements.searchInput) {
+      elements.searchInput.addEventListener(
         'input',
-        function () {
-          state.searchText =
-            normalizeText(
-              el.searchInput.value
-            ).toLowerCase();
-
-          if (el.clearSearchButton) {
-            el.clearSearchButton.hidden =
-              !state.searchText;
-          }
-
-          renderWebsites();
-        }
+        handleSearchInput
       );
     }
 
-    if (el.clearSearchButton) {
-      el.clearSearchButton.addEventListener(
+    if (elements.clearSearchButton) {
+      elements.clearSearchButton.addEventListener(
         'click',
-        function () {
-          state.searchText = '';
-
-          if (el.searchInput) {
-            el.searchInput.value = '';
-            el.searchInput.focus();
-          }
-
-          el.clearSearchButton.hidden = true;
-
-          renderWebsites();
-        }
+        clearSearch
       );
     }
 
-    if (el.categoryTabs) {
-      el.categoryTabs.addEventListener(
+    if (elements.categoryTabs) {
+      elements.categoryTabs.addEventListener(
         'click',
-        function (event) {
-          const button =
-            event.target.closest(
-              '.category-tab'
-            );
-
-          if (!button) {
-            return;
-          }
-
-          state.activeCategory =
-            normalizeText(
-              button.dataset.category
-            ) ||
-            ALL_CATEGORY;
-
-          updateCategoryButtons();
-          renderWebsites();
-        }
+        handleCategoryClick
       );
     }
 
-    if (el.websiteGrid) {
-      el.websiteGrid.addEventListener(
+    if (elements.websiteGrid) {
+      elements.websiteGrid.addEventListener(
         'click',
-        function (event) {
-          const card =
-            event.target.closest(
-              '.website-card'
-            );
-
-          if (!card) {
-            return;
-          }
-
-          openWebsite(
-            card.dataset.link
-          );
-        }
+        handleWebsiteClick
       );
 
-      el.websiteGrid.addEventListener(
+      elements.websiteGrid.addEventListener(
         'keydown',
-        function (event) {
-          if (
-            event.key !== 'Enter' &&
-            event.key !== ' '
-          ) {
-            return;
-          }
-
-          const card =
-            event.target.closest(
-              '.website-card'
-            );
-
-          if (!card) {
-            return;
-          }
-
-          event.preventDefault();
-
-          openWebsite(
-            card.dataset.link
-          );
-        }
+        handleWebsiteKeydown
       );
     }
 
-    if (el.userMenuButton) {
-      el.userMenuButton.addEventListener(
+    if (elements.userMenuButton) {
+      elements.userMenuButton.addEventListener(
         'click',
         toggleUserMenu
       );
     }
 
-    if (el.logoutButton) {
-      el.logoutButton.addEventListener(
+    if (elements.logoutButton) {
+      elements.logoutButton.addEventListener(
         'click',
         requestLogout
       );
@@ -328,21 +275,7 @@
 
     document.addEventListener(
       'click',
-      function (event) {
-        if (
-          el.userDropdown &&
-          !el.userDropdown.hidden &&
-          el.userMenuButton &&
-          !el.userDropdown.contains(
-            event.target
-          ) &&
-          !el.userMenuButton.contains(
-            event.target
-          )
-        ) {
-          closeUserMenu();
-        }
-      }
+      handleDocumentClick
     );
 
     document.addEventListener(
@@ -361,7 +294,8 @@
 
         showToast({
           icon: 'success',
-          title: 'เชื่อมต่ออินเทอร์เน็ตแล้ว'
+          title:
+            'เชื่อมต่ออินเทอร์เน็ตแล้ว'
         });
       }
     );
@@ -376,7 +310,8 @@
 
         showToast({
           icon: 'warning',
-          title: 'ไม่มีการเชื่อมต่ออินเทอร์เน็ต'
+          title:
+            'ไม่มีการเชื่อมต่ออินเทอร์เน็ต'
         });
       }
     );
@@ -432,34 +367,42 @@
     status,
     message
   ) {
-    if (el.systemStatusDot) {
-      el.systemStatusDot.classList.remove(
-        'is-checking',
-        'is-online',
-        'is-offline'
-      );
+    if (
+      elements.systemStatusDot
+    ) {
+      elements.systemStatusDot
+        .classList.remove(
+          'is-checking',
+          'is-online',
+          'is-offline'
+        );
 
       if (status === 'checking') {
-        el.systemStatusDot.classList.add(
-          'is-checking'
-        );
+        elements.systemStatusDot
+          .classList.add(
+            'is-checking'
+          );
       }
 
       if (status === 'online') {
-        el.systemStatusDot.classList.add(
-          'is-online'
-        );
+        elements.systemStatusDot
+          .classList.add(
+            'is-online'
+          );
       }
 
       if (status === 'offline') {
-        el.systemStatusDot.classList.add(
-          'is-offline'
-        );
+        elements.systemStatusDot
+          .classList.add(
+            'is-offline'
+          );
       }
     }
 
-    if (el.systemStatusText) {
-      el.systemStatusText.textContent =
+    if (
+      elements.systemStatusText
+    ) {
+      elements.systemStatusText.textContent =
         normalizeText(message);
     }
   }
@@ -469,11 +412,13 @@
    * LOGIN
    ************************************************************/
 
-  async function handleLogin(event) {
+  async function handleLogin(
+    event
+  ) {
     event.preventDefault();
 
     if (
-      state.loggingIn ||
+      state.isLoggingIn ||
       !API
     ) {
       return;
@@ -481,8 +426,8 @@
 
     const pass =
       normalizeText(
-        el.passwordInput &&
-        el.passwordInput.value
+        elements.passwordInput &&
+        elements.passwordInput.value
       );
 
     if (!pass) {
@@ -490,8 +435,10 @@
 
       await showAlert({
         icon: 'warning',
-        title: 'กรุณากรอกรหัสผ่าน',
-        text: 'กรอกรหัสผ่านก่อนกดเข้าสู่ระบบ'
+        title:
+          'กรุณากรอกรหัสผ่าน',
+        text:
+          'กรอกรหัสผ่านก่อนกดเข้าสู่ระบบ'
       });
 
       focusPassword();
@@ -499,7 +446,8 @@
       return;
     }
 
-    state.loggingIn = true;
+    state.isLoggingIn =
+      true;
 
     setLoginBusy(true);
     setLoginMessage('');
@@ -517,8 +465,11 @@
         ) ||
         'ผู้ใช้งาน';
 
-      if (el.passwordInput) {
-        el.passwordInput.value = '';
+      if (
+        elements.passwordInput
+      ) {
+        elements.passwordInput.value =
+          '';
       }
 
       setCurrentUser(
@@ -549,46 +500,64 @@
           'เข้าสู่ระบบไม่สำเร็จ'
         );
 
+      setLoginMessage(
+        message
+      );
+
       markPasswordError(true);
-      setLoginMessage(message);
 
       await showAlert({
         icon: 'error',
-        title: 'เข้าสู่ระบบไม่สำเร็จ',
-        text: message
+        title:
+          'เข้าสู่ระบบไม่สำเร็จ',
+        text:
+          message
       });
 
       focusPassword(true);
 
     } finally {
-      state.loggingIn = false;
+      state.isLoggingIn =
+        false;
+
       setLoginBusy(false);
     }
   }
 
 
   function setLoginBusy(
-    busy
+    isBusy
   ) {
-    if (el.loginButton) {
-      el.loginButton.disabled =
-        Boolean(busy);
+    const busy =
+      Boolean(isBusy);
+
+    if (
+      elements.loginButton
+    ) {
+      elements.loginButton.disabled =
+        busy;
     }
 
-    if (el.passwordInput) {
-      el.passwordInput.disabled =
-        Boolean(busy);
+    if (
+      elements.passwordInput
+    ) {
+      elements.passwordInput.disabled =
+        busy;
     }
 
-    if (el.loginButtonText) {
-      el.loginButtonText.textContent =
+    if (
+      elements.loginButtonText
+    ) {
+      elements.loginButtonText.textContent =
         busy
           ? 'กำลังตรวจสอบ...'
           : 'เข้าสู่ระบบ';
     }
 
-    if (el.loginButtonSpinner) {
-      el.loginButtonSpinner.hidden =
+    if (
+      elements.loginButtonSpinner
+    ) {
+      elements.loginButtonSpinner.hidden =
         !busy;
     }
   }
@@ -597,8 +566,10 @@
   function setLoginMessage(
     message
   ) {
-    if (el.loginMessage) {
-      el.loginMessage.textContent =
+    if (
+      elements.loginMessage
+    ) {
+      elements.loginMessage.textContent =
         normalizeText(message);
     }
   }
@@ -607,73 +578,91 @@
   function markPasswordError(
     hasError
   ) {
-    if (!el.passwordInput) {
+    if (
+      !elements.passwordInput
+    ) {
       return;
     }
 
-    el.passwordInput.classList.toggle(
-      'input-error',
-      Boolean(hasError)
-    );
+    const invalid =
+      Boolean(hasError);
 
-    el.passwordInput.setAttribute(
-      'aria-invalid',
-      hasError
-        ? 'true'
-        : 'false'
-    );
+    elements.passwordInput
+      .classList.toggle(
+        'input-error',
+        invalid
+      );
+
+    elements.passwordInput
+      .setAttribute(
+        'aria-invalid',
+        invalid
+          ? 'true'
+          : 'false'
+      );
   }
 
 
   function focusPassword(
     selectText
   ) {
-    if (!el.passwordInput) {
+    if (
+      !elements.passwordInput
+    ) {
       return;
     }
 
-    el.passwordInput.focus();
+    elements.passwordInput.focus();
 
     if (selectText) {
-      el.passwordInput.select();
+      elements.passwordInput.select();
     }
   }
 
 
-  function togglePassword() {
-    if (!el.passwordInput) {
+  function togglePasswordVisibility() {
+    if (
+      !elements.passwordInput
+    ) {
       return;
     }
 
     const showPassword =
-      el.passwordInput.type ===
+      elements.passwordInput.type ===
       'password';
 
-    el.passwordInput.type =
+    elements.passwordInput.type =
       showPassword
         ? 'text'
         : 'password';
 
-    if (el.eyeOpenIcon) {
-      el.eyeOpenIcon.hidden =
+    if (
+      elements.eyeOpenIcon
+    ) {
+      elements.eyeOpenIcon.hidden =
         showPassword;
     }
 
-    if (el.eyeClosedIcon) {
-      el.eyeClosedIcon.hidden =
+    if (
+      elements.eyeClosedIcon
+    ) {
+      elements.eyeClosedIcon.hidden =
         !showPassword;
     }
 
-    if (el.togglePasswordButton) {
-      el.togglePasswordButton.setAttribute(
-        'aria-label',
-        showPassword
-          ? 'ซ่อนรหัสผ่าน'
-          : 'แสดงรหัสผ่าน'
-      );
+    if (
+      elements.togglePasswordButton
+    ) {
+      elements.togglePasswordButton
+        .setAttribute(
+          'aria-label',
+          showPassword
+            ? 'ซ่อนรหัสผ่าน'
+            : 'แสดงรหัสผ่าน'
+        );
     }
 
-    el.passwordInput.focus();
+    elements.passwordInput.focus();
   }
 
 
@@ -682,12 +671,18 @@
    ************************************************************/
 
   function showLoginView() {
-    if (el.loginView) {
-      el.loginView.hidden = false;
+    if (
+      elements.loginView
+    ) {
+      elements.loginView.hidden =
+        false;
     }
 
-    if (el.portalView) {
-      el.portalView.hidden = true;
+    if (
+      elements.portalView
+    ) {
+      elements.portalView.hidden =
+        true;
     }
 
     closeUserMenu();
@@ -695,12 +690,18 @@
 
 
   function showPortalView() {
-    if (el.loginView) {
-      el.loginView.hidden = true;
+    if (
+      elements.loginView
+    ) {
+      elements.loginView.hidden =
+        true;
     }
 
-    if (el.portalView) {
-      el.portalView.hidden = false;
+    if (
+      elements.portalView
+    ) {
+      elements.portalView.hidden =
+        false;
     }
 
     window.scrollTo({
@@ -714,27 +715,37 @@
     nameValue
   ) {
     const name =
-      normalizeText(nameValue) ||
+      normalizeText(
+        nameValue
+      ) ||
       'ผู้ใช้งาน';
 
-    if (el.currentUserName) {
-      el.currentUserName.textContent =
+    if (
+      elements.currentUserName
+    ) {
+      elements.currentUserName.textContent =
         name;
     }
 
-    if (el.dropdownUserName) {
-      el.dropdownUserName.textContent =
+    if (
+      elements.dropdownUserName
+    ) {
+      elements.dropdownUserName.textContent =
         name;
     }
 
-    if (el.userAvatar) {
-      el.userAvatar.textContent =
+    if (
+      elements.userAvatar
+    ) {
+      elements.userAvatar.textContent =
         Array.from(name)[0]
           .toUpperCase();
     }
 
-    if (el.welcomeGreeting) {
-      el.welcomeGreeting.textContent =
+    if (
+      elements.welcomeGreeting
+    ) {
+      elements.welcomeGreeting.textContent =
         'ยินดีต้อนรับ ' +
         name;
     }
@@ -742,20 +753,21 @@
 
 
   /************************************************************
-   * WEBSITES
+   * LOAD WEBSITES
    ************************************************************/
 
   async function loadWebsites(
     showSuccessMessage
   ) {
     if (
-      state.loading ||
+      state.isLoading ||
       !API
     ) {
       return;
     }
 
-    state.loading = true;
+    state.isLoading =
+      true;
 
     setRefreshBusy(true);
     showListState('loading');
@@ -821,7 +833,9 @@
         error
       );
 
-      if (isSessionError(error)) {
+      if (
+        isSessionError(error)
+      ) {
         await expireSession(
           getErrorMessage(
             error,
@@ -845,12 +859,16 @@
 
       await showAlert({
         icon: 'error',
-        title: 'โหลดข้อมูลไม่สำเร็จ',
-        text: message
+        title:
+          'โหลดข้อมูลไม่สำเร็จ',
+        text:
+          message
       });
 
     } finally {
-      state.loading = false;
+      state.isLoading =
+        false;
+
       setRefreshBusy(false);
     }
   }
@@ -859,95 +877,112 @@
   function normalizeWebsites(
     value
   ) {
-    if (!Array.isArray(value)) {
+    if (
+      !Array.isArray(value)
+    ) {
       return [];
     }
 
     return value
-      .map(function (
-        item,
-        index
-      ) {
-        const name =
-          normalizeText(
-            item &&
-            item.name
-          );
-
-        const link =
-          normalizeText(
-            item &&
-            item.link
-          );
-
-        if (
-          !name ||
-          !isHttpUrl(link)
+      .map(
+        function (
+          item,
+          index
         ) {
-          return null;
+          const name =
+            normalizeText(
+              item &&
+              item.name
+            );
+
+          const link =
+            normalizeText(
+              item &&
+              item.link
+            );
+
+          if (
+            !name ||
+            !isHttpUrl(link)
+          ) {
+            return null;
+          }
+
+          const sort =
+            Number(
+              item &&
+              item.sort
+            );
+
+          return {
+            id:
+              normalizeText(
+                item &&
+                item.id
+              ) ||
+              'website-' +
+              index,
+
+            name:
+              name,
+
+            link:
+              link,
+
+            category:
+              normalizeText(
+                item &&
+                item.category
+              ) ||
+              'ทั่วไป',
+
+            icon:
+              normalizeText(
+                item &&
+                item.icon
+              ) ||
+              'link',
+
+            sort:
+              Number.isFinite(sort)
+                ? sort
+                : 9999
+          };
         }
-
-        const sort =
-          Number(
-            item.sort
-          );
-
-        return {
-          id:
-            normalizeText(
-              item.id
-            ) ||
-            'website-' +
-            index,
-
-          name:
-            name,
-
-          link:
-            link,
-
-          category:
-            normalizeText(
-              item.category
-            ) ||
-            'ทั่วไป',
-
-          icon:
-            normalizeText(
-              item.icon
-            ) ||
-            'link',
-
-          sort:
-            Number.isFinite(sort)
-              ? sort
-              : 9999
-        };
-      })
+      )
       .filter(Boolean)
-      .sort(function (
-        a,
-        b
-      ) {
-        const categoryCompare =
-          a.category.localeCompare(
-            b.category,
+      .sort(
+        function (
+          a,
+          b
+        ) {
+          const categoryCompare =
+            a.category.localeCompare(
+              b.category,
+              'th'
+            );
+
+          if (
+            categoryCompare !== 0
+          ) {
+            return categoryCompare;
+          }
+
+          if (
+            a.sort !== b.sort
+          ) {
+            return (
+              a.sort -
+              b.sort
+            );
+          }
+
+          return a.name.localeCompare(
+            b.name,
             'th'
           );
-
-        if (categoryCompare !== 0) {
-          return categoryCompare;
         }
-
-        if (a.sort !== b.sort) {
-          return a.sort - b.sort;
-        }
-
-        return a.name.localeCompare(
-          b.name,
-          'th'
-        );
-      });
+      );
   }
 
 
@@ -955,7 +990,7 @@
     websites,
     returnedCategories
   ) {
-    const result = [];
+    const categories = [];
 
     if (
       Array.isArray(
@@ -969,11 +1004,11 @@
 
           if (
             category &&
-            !result.includes(
+            !categories.includes(
               category
             )
           ) {
-            result.push(
+            categories.push(
               category
             );
           }
@@ -984,27 +1019,99 @@
     websites.forEach(
       function (website) {
         if (
-          !result.includes(
+          !categories.includes(
             website.category
           )
         ) {
-          result.push(
+          categories.push(
             website.category
           );
         }
       }
     );
 
-    return result;
+    return categories;
+  }
+
+
+  /************************************************************
+   * SEARCH / CATEGORY
+   ************************************************************/
+
+  function handleSearchInput() {
+    state.searchText =
+      normalizeText(
+        elements.searchInput &&
+        elements.searchInput.value
+      ).toLowerCase();
+
+    if (
+      elements.clearSearchButton
+    ) {
+      elements.clearSearchButton.hidden =
+        !state.searchText;
+    }
+
+    renderWebsites();
+  }
+
+
+  function clearSearch() {
+    state.searchText =
+      '';
+
+    if (
+      elements.searchInput
+    ) {
+      elements.searchInput.value =
+        '';
+
+      elements.searchInput.focus();
+    }
+
+    if (
+      elements.clearSearchButton
+    ) {
+      elements.clearSearchButton.hidden =
+        true;
+    }
+
+    renderWebsites();
+  }
+
+
+  function handleCategoryClick(
+    event
+  ) {
+    const button =
+      event.target.closest(
+        '.category-tab'
+      );
+
+    if (!button) {
+      return;
+    }
+
+    state.activeCategory =
+      normalizeText(
+        button.dataset.category
+      ) ||
+      ALL_CATEGORY;
+
+    updateCategoryButtons();
+    renderWebsites();
   }
 
 
   function renderCategories() {
-    if (!el.categoryTabs) {
+    if (
+      !elements.categoryTabs
+    ) {
       return;
     }
 
-    el.categoryTabs.replaceChildren();
+    elements.categoryTabs
+      .replaceChildren();
 
     [
       ALL_CATEGORY
@@ -1052,20 +1159,23 @@
           button.textContent =
             category;
 
-          el.categoryTabs.appendChild(
-            button
-          );
+          elements.categoryTabs
+            .appendChild(
+              button
+            );
         }
       );
   }
 
 
   function updateCategoryButtons() {
-    if (!el.categoryTabs) {
+    if (
+      !elements.categoryTabs
+    ) {
       return;
     }
 
-    el.categoryTabs
+    elements.categoryTabs
       .querySelectorAll(
         '.category-tab'
       )
@@ -1091,16 +1201,24 @@
   }
 
 
+  /************************************************************
+   * RENDER WEBSITES
+   ************************************************************/
+
   function updateSummary() {
-    if (el.totalWebsiteCount) {
-      el.totalWebsiteCount.textContent =
+    if (
+      elements.totalWebsiteCount
+    ) {
+      elements.totalWebsiteCount.textContent =
         String(
           state.websites.length
         );
     }
 
-    if (el.totalCategoryCount) {
-      el.totalCategoryCount.textContent =
+    if (
+      elements.totalCategoryCount
+    ) {
+      elements.totalCategoryCount.textContent =
         String(
           state.categories.length
         );
@@ -1125,30 +1243,34 @@
           return true;
         }
 
-        return [
+        const searchableText = [
           website.name,
           website.category,
           website.link
         ]
           .join(' ')
-          .toLowerCase()
-          .includes(
-            state.searchText
-          );
+          .toLowerCase();
+
+        return searchableText.includes(
+          state.searchText
+        );
       }
     );
   }
 
 
   function renderWebsites() {
-    if (!el.websiteGrid) {
+    if (
+      !elements.websiteGrid
+    ) {
       return;
     }
 
     const websites =
       getFilteredWebsites();
 
-    el.websiteGrid.replaceChildren();
+    elements.websiteGrid
+      .replaceChildren();
 
     if (
       state.websites.length === 0
@@ -1195,9 +1317,10 @@
       }
     );
 
-    el.websiteGrid.appendChild(
-      fragment
-    );
+    elements.websiteGrid
+      .appendChild(
+        fragment
+      );
 
     showListState('grid');
 
@@ -1225,7 +1348,8 @@
     card.dataset.link =
       website.link;
 
-    card.tabIndex = 0;
+    card.tabIndex =
+      0;
 
     card.setAttribute(
       'role',
@@ -1389,34 +1513,46 @@
     message,
     detail
   ) {
-    if (el.websiteLoadingState) {
-      el.websiteLoadingState.hidden =
+    if (
+      elements.websiteLoadingState
+    ) {
+      elements.websiteLoadingState.hidden =
         true;
     }
 
-    if (el.websiteGrid) {
-      el.websiteGrid.hidden =
+    if (
+      elements.websiteGrid
+    ) {
+      elements.websiteGrid.hidden =
         true;
     }
 
-    if (el.emptyState) {
-      el.emptyState.hidden =
+    if (
+      elements.emptyState
+    ) {
+      elements.emptyState.hidden =
         true;
     }
 
-    if (el.errorState) {
-      el.errorState.hidden =
+    if (
+      elements.errorState
+    ) {
+      elements.errorState.hidden =
         true;
     }
 
     if (type === 'loading') {
-      if (el.websiteLoadingState) {
-        el.websiteLoadingState.hidden =
+      if (
+        elements.websiteLoadingState
+      ) {
+        elements.websiteLoadingState.hidden =
           false;
       }
 
-      if (el.resultCountText) {
-        el.resultCountText.textContent =
+      if (
+        elements.resultCountText
+      ) {
+        elements.resultCountText.textContent =
           'กำลังโหลดข้อมูล';
       }
 
@@ -1424,8 +1560,10 @@
     }
 
     if (type === 'grid') {
-      if (el.websiteGrid) {
-        el.websiteGrid.hidden =
+      if (
+        elements.websiteGrid
+      ) {
+        elements.websiteGrid.hidden =
           false;
       }
 
@@ -1433,19 +1571,25 @@
     }
 
     if (type === 'empty') {
-      if (el.emptyState) {
-        el.emptyState.hidden =
+      if (
+        elements.emptyState
+      ) {
+        elements.emptyState.hidden =
           false;
       }
 
-      if (el.emptyStateTitle) {
-        el.emptyStateTitle.textContent =
+      if (
+        elements.emptyStateTitle
+      ) {
+        elements.emptyStateTitle.textContent =
           message ||
           'ไม่พบเว็บไซต์';
       }
 
-      if (el.emptyStateMessage) {
-        el.emptyStateMessage.textContent =
+      if (
+        elements.emptyStateMessage
+      ) {
+        elements.emptyStateMessage.textContent =
           detail ||
           '';
       }
@@ -1454,19 +1598,25 @@
     }
 
     if (type === 'error') {
-      if (el.errorState) {
-        el.errorState.hidden =
+      if (
+        elements.errorState
+      ) {
+        elements.errorState.hidden =
           false;
       }
 
-      if (el.errorStateMessage) {
-        el.errorStateMessage.textContent =
+      if (
+        elements.errorStateMessage
+      ) {
+        elements.errorStateMessage.textContent =
           message ||
           'กรุณาลองใหม่อีกครั้ง';
       }
 
-      if (el.resultCountText) {
-        el.resultCountText.textContent =
+      if (
+        elements.resultCountText
+      ) {
+        elements.resultCountText.textContent =
           'โหลดข้อมูลไม่สำเร็จ';
       }
     }
@@ -1476,11 +1626,13 @@
   function updateResultCount(
     count
   ) {
-    if (!el.resultCountText) {
+    if (
+      !elements.resultCountText
+    ) {
       return;
     }
 
-    el.resultCountText.textContent =
+    elements.resultCountText.textContent =
       'พบ ' +
       count +
       ' รายการ' +
@@ -1488,9 +1640,68 @@
         state.activeCategory ===
           ALL_CATEGORY
           ? ''
-          : ' ในหมวด ' +
+          : ' · ' +
             state.activeCategory
       );
+  }
+
+
+  /************************************************************
+   * OPEN WEBSITE
+   ************************************************************/
+
+  function handleWebsiteClick(
+    event
+  ) {
+    const card =
+      event.target.closest(
+        '.website-card'
+      );
+
+    if (
+      !card ||
+      !elements.websiteGrid.contains(
+        card
+      )
+    ) {
+      return;
+    }
+
+    openWebsite(
+      card.dataset.link
+    );
+  }
+
+
+  function handleWebsiteKeydown(
+    event
+  ) {
+    if (
+      event.key !== 'Enter' &&
+      event.key !== ' '
+    ) {
+      return;
+    }
+
+    const card =
+      event.target.closest(
+        '.website-card'
+      );
+
+    if (
+      !card ||
+      !elements.websiteGrid.contains(
+        card
+      )
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    openWebsite(
+      card.dataset.link
+    );
   }
 
 
@@ -1502,35 +1713,61 @@
         linkValue
       );
 
-    if (!isHttpUrl(link)) {
+    if (
+      !isHttpUrl(link)
+    ) {
       showAlert({
         icon: 'error',
-        title: 'เปิดเว็บไซต์ไม่ได้',
-        text: 'ลิงก์เว็บไซต์ไม่ถูกต้อง'
+        title:
+          'เปิดเว็บไซต์ไม่ได้',
+        text:
+          'ลิงก์เว็บไซต์ไม่ถูกต้อง'
       });
 
       return;
     }
 
-    const opened =
+    const openedWindow =
       window.open(
-        link,
-        '_blank',
-        'noopener,noreferrer'
+        '',
+        '_blank'
       );
 
-    if (!opened) {
+    if (!openedWindow) {
       showAlert({
         icon: 'warning',
-        title: 'เบราว์เซอร์บล็อกหน้าต่างใหม่',
-        text: 'กรุณาอนุญาต Pop-up แล้วลองอีกครั้ง'
+        title:
+          'เบราว์เซอร์บล็อกหน้าต่างใหม่',
+        text:
+          'กรุณาอนุญาต Pop-up แล้วลองอีกครั้ง'
+      });
+
+      return;
+    }
+
+    try {
+      openedWindow.opener =
+        null;
+
+      openedWindow.location.href =
+        link;
+
+    } catch (error) {
+      openedWindow.close();
+
+      showAlert({
+        icon: 'error',
+        title:
+          'เปิดเว็บไซต์ไม่ได้',
+        text:
+          'กรุณาลองเปิดเว็บไซต์อีกครั้ง'
       });
     }
   }
 
 
   /************************************************************
-   * USER / LOGOUT
+   * USER MENU / LOGOUT
    ************************************************************/
 
   function toggleUserMenu(
@@ -1539,39 +1776,71 @@
     event.stopPropagation();
 
     if (
-      !el.userDropdown ||
-      !el.userMenuButton
+      !elements.userDropdown ||
+      !elements.userMenuButton
     ) {
       return;
     }
 
-    const open =
-      el.userDropdown.hidden;
+    const willOpen =
+      elements.userDropdown.hidden;
 
-    el.userDropdown.hidden =
-      !open;
+    elements.userDropdown.hidden =
+      !willOpen;
 
-    el.userMenuButton.setAttribute(
-      'aria-expanded',
-      open
-        ? 'true'
-        : 'false'
-    );
+    elements.userMenuButton
+      .setAttribute(
+        'aria-expanded',
+        willOpen
+          ? 'true'
+          : 'false'
+      );
   }
 
 
   function closeUserMenu() {
-    if (el.userDropdown) {
-      el.userDropdown.hidden =
+    if (
+      elements.userDropdown
+    ) {
+      elements.userDropdown.hidden =
         true;
     }
 
-    if (el.userMenuButton) {
-      el.userMenuButton.setAttribute(
-        'aria-expanded',
-        'false'
-      );
+    if (
+      elements.userMenuButton
+    ) {
+      elements.userMenuButton
+        .setAttribute(
+          'aria-expanded',
+          'false'
+        );
     }
+  }
+
+
+  function handleDocumentClick(
+    event
+  ) {
+    if (
+      !elements.userDropdown ||
+      elements.userDropdown.hidden ||
+      !elements.userMenuButton
+    ) {
+      return;
+    }
+
+    if (
+      elements.userDropdown.contains(
+        event.target
+      ) ||
+      elements.userMenuButton.contains(
+        event.target
+      )
+    ) {
+      return;
+    }
+
+    closeUserMenu();
   }
 
 
@@ -1580,10 +1849,14 @@
 
     const confirmed =
       await confirmAlert({
-        title: 'ออกจากระบบ',
-        text: 'คุณต้องการออกจากระบบใช่หรือไม่',
-        confirmButtonText: 'ออกจากระบบ',
-        cancelButtonText: 'ยกเลิก'
+        title:
+          'ออกจากระบบ',
+        text:
+          'คุณต้องการออกจากระบบใช่หรือไม่',
+        confirmButtonText:
+          'ออกจากระบบ',
+        cancelButtonText:
+          'ยกเลิก'
       });
 
     if (!confirmed) {
@@ -1617,8 +1890,11 @@
       closeAlert();
       showLoginView();
 
-      if (el.passwordInput) {
-        el.passwordInput.value = '';
+      if (
+        elements.passwordInput
+      ) {
+        elements.passwordInput.value =
+          '';
       }
 
       markPasswordError(false);
@@ -1626,7 +1902,8 @@
 
       showToast({
         icon: 'success',
-        title: 'ออกจากระบบแล้ว'
+        title:
+          'ออกจากระบบแล้ว'
       });
 
       window.setTimeout(
@@ -1640,20 +1917,40 @@
 
 
   function resetPortalState() {
-    state.websites = [];
-    state.categories = [];
+    state.websites =
+      [];
+
+    state.categories =
+      [];
+
     state.activeCategory =
       ALL_CATEGORY;
-    state.searchText = '';
 
-    if (el.searchInput) {
-      el.searchInput.value = '';
+    state.searchText =
+      '';
+
+    if (
+      elements.searchInput
+    ) {
+      elements.searchInput.value =
+        '';
     }
 
-    if (el.clearSearchButton) {
-      el.clearSearchButton.hidden =
+    if (
+      elements.clearSearchButton
+    ) {
+      elements.clearSearchButton.hidden =
         true;
     }
+
+    if (
+      elements.websiteGrid
+    ) {
+      elements.websiteGrid
+        .replaceChildren();
+    }
+
+    updateSummary();
   }
 
 
@@ -1680,11 +1977,13 @@
       return;
     }
 
-    const remaining =
+    const remainingTime =
       session.expiresTime -
       Date.now();
 
-    if (remaining <= 0) {
+    if (
+      remainingTime <= 0
+    ) {
       expireSession(
         'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
       );
@@ -1700,7 +1999,7 @@
           );
         },
         Math.min(
-          remaining,
+          remainingTime,
           2147483647
         )
       );
@@ -1708,7 +2007,9 @@
 
 
   function clearSessionTimer() {
-    if (!state.sessionTimer) {
+    if (
+      !state.sessionTimer
+    ) {
       return;
     }
 
@@ -1716,7 +2017,8 @@
       state.sessionTimer
     );
 
-    state.sessionTimer = null;
+    state.sessionTimer =
+      null;
   }
 
 
@@ -1732,13 +2034,17 @@
     resetPortalState();
     showLoginView();
 
-    if (el.passwordInput) {
-      el.passwordInput.value = '';
+    if (
+      elements.passwordInput
+    ) {
+      elements.passwordInput.value =
+        '';
     }
 
     await showAlert({
       icon: 'warning',
-      title: 'กรุณาเข้าสู่ระบบใหม่',
+      title:
+        'กรุณาเข้าสู่ระบบใหม่',
       text:
         normalizeText(message) ||
         'Session หมดอายุ'
@@ -1913,10 +2219,10 @@
 
 
   /************************************************************
-   * SWEETALERT
+   * SWEETALERT2
    ************************************************************/
 
-  function getSwal() {
+  function getSweetAlert() {
     return window.Swal || null;
   }
 
@@ -1925,7 +2231,7 @@
     options
   ) {
     const Swal =
-      getSwal();
+      getSweetAlert();
 
     const settings =
       options || {};
@@ -1982,7 +2288,7 @@
     options
   ) {
     const Swal =
-      getSwal();
+      getSweetAlert();
 
     const settings =
       options || {};
@@ -1993,7 +2299,9 @@
 
     Swal.fire({
       toast: true,
-      position: 'top-end',
+
+      position:
+        'top-end',
 
       icon:
         settings.icon ||
@@ -2003,7 +2311,8 @@
         settings.title ||
         'ดำเนินการสำเร็จ',
 
-      showConfirmButton: false,
+      showConfirmButton:
+        false,
 
       timer:
         Number(
@@ -2011,7 +2320,8 @@
         ) ||
         2500,
 
-      timerProgressBar: true,
+      timerProgressBar:
+        true,
 
       customClass: {
         popup:
@@ -2025,7 +2335,7 @@
     options
   ) {
     const Swal =
-      getSwal();
+      getSweetAlert();
 
     const settings =
       options || {};
@@ -2040,7 +2350,8 @@
 
     const result =
       await Swal.fire({
-        icon: 'question',
+        icon:
+          'question',
 
         title:
           settings.title ||
@@ -2050,7 +2361,8 @@
           settings.text ||
           '',
 
-        showCancelButton: true,
+        showCancelButton:
+          true,
 
         confirmButtonText:
           settings.confirmButtonText ||
@@ -2060,7 +2372,8 @@
           settings.cancelButtonText ||
           'ยกเลิก',
 
-        reverseButtons: true,
+        reverseButtons:
+          true,
 
         customClass: {
           popup:
@@ -2078,7 +2391,7 @@
     title
   ) {
     const Swal =
-      getSwal();
+      getSweetAlert();
 
     if (!Swal) {
       return;
@@ -2089,25 +2402,31 @@
         normalizeText(title) ||
         'กำลังดำเนินการ...',
 
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      showConfirmButton: false,
+      allowOutsideClick:
+        false,
+
+      allowEscapeKey:
+        false,
+
+      showConfirmButton:
+        false,
 
       customClass: {
         popup:
           'slp-swal-popup'
       },
 
-      didOpen: function () {
-        Swal.showLoading();
-      }
+      didOpen:
+        function () {
+          Swal.showLoading();
+        }
     });
   }
 
 
   function closeAlert() {
     const Swal =
-      getSwal();
+      getSweetAlert();
 
     if (Swal) {
       Swal.close();
@@ -2120,19 +2439,25 @@
    ************************************************************/
 
   function setRefreshBusy(
-    busy
+    isBusy
   ) {
-    if (!el.refreshButton) {
+    if (
+      !elements.refreshButton
+    ) {
       return;
     }
 
-    el.refreshButton.disabled =
-      Boolean(busy);
+    const busy =
+      Boolean(isBusy);
 
-    el.refreshButton.classList.toggle(
-      'is-loading',
-      Boolean(busy)
-    );
+    elements.refreshButton.disabled =
+      busy;
+
+    elements.refreshButton
+      .classList.toggle(
+        'is-loading',
+        busy
+      );
   }
 
 
