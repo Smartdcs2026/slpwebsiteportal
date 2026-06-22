@@ -2324,3 +2324,33 @@ transition-duration: 0.01ms !important;
 
 }
 }
+/* บังคับเอากรอบและพื้นหลังโลโก้ออก */
+.login-logo-wrapper,
+.portal-logo-wrapper {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.login-logo-wrapper {
+  width: 110px !important;
+  height: 110px !important;
+}
+
+.portal-logo-wrapper {
+  width: 52px !important;
+  height: 52px !important;
+}
+
+.login-logo,
+.portal-logo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
