@@ -10,7 +10,7 @@
 
   <meta
     name="theme-color"
-    content="#0f766e"
+    content="#0b5f59"
   >
 
   <meta
@@ -44,7 +44,7 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=20260622-4"
+    href="styles.css?v=20260622-5"
   >
 
   <script
@@ -53,17 +53,17 @@
   ></script>
 
   <script
-    src="config.js?v=20260622-4"
+    src="config.js?v=20260622-5"
     defer
   ></script>
 
   <script
-    src="api.js?v=20260622-4"
+    src="api.js?v=20260622-5"
     defer
   ></script>
 
   <script
-    src="app.js?v=20260622-4"
+    src="app.js?v=20260622-5"
     defer
   ></script>
 </head>
@@ -83,218 +83,369 @@
       class="login-view"
       aria-labelledby="loginTitle"
     >
-      <div class="login-card">
+      <div class="login-shell">
 
-        <div class="login-brand">
+        <aside class="login-visual">
 
-          <img
-            id="loginLogo"
-            class="login-logo"
-            src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
-            alt="S&LP Logo"
-            decoding="async"
-          >
+          <div class="visual-topline">
+            <span class="visual-dot"></span>
+            <span>S&amp;LP OPERATIONS</span>
+          </div>
 
-          <div class="login-brand-copy">
-            <span class="login-badge">
-              WEBSITE PORTAL
-            </span>
+          <div class="visual-brand">
 
-            <h1
-              id="loginTitle"
-              class="login-title"
+            <img
+              id="loginLogo"
+              class="login-logo"
+              src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
+              alt="S&LP Logo"
+              decoding="async"
             >
-              S&amp;LP Portal
-            </h1>
 
-            <p class="login-department">
-              S&amp;LP Security &amp; Lossprevention
+            <div>
+              <p class="visual-kicker">
+                WEBSITE PORTAL
+              </p>
+
+              <h1
+                id="loginTitle"
+                class="visual-title"
+              >
+                S&amp;LP Portal
+              </h1>
+
+              <p class="visual-subtitle">
+                Security &amp; Lossprevention
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="visual-message">
+            <h2>
+              ทุกระบบงาน<br>
+              อยู่ในที่เดียว
+            </h2>
+
+            <p>
+              เข้าถึงเว็บไซต์สำหรับการปฏิบัติงานได้อย่างรวดเร็ว
+              เป็นระเบียบ และรองรับการใช้งานบนมือถือ
             </p>
           </div>
 
-        </div>
+
+          <div class="visual-feature-grid">
+
+            <div class="visual-feature">
+              <span class="feature-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+              </span>
+
+              <span>
+                รวมระบบงาน
+              </span>
+            </div>
+
+            <div class="visual-feature">
+              <span class="feature-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                </svg>
+              </span>
+
+              <span>
+                จำกัดสิทธิ์ผู้ใช้
+              </span>
+            </div>
+
+          </div>
+
+        </aside>
 
 
-        <div class="login-intro">
-          <h2>
-            เข้าสู่ระบบ
-          </h2>
+        <section class="login-form-panel">
 
-          <p>
-            กรอกรหัสผ่านเพื่อเปิดเว็บไซต์สำหรับการปฏิบัติงาน
-          </p>
-        </div>
+          <div class="form-panel-header">
+
+            <div class="mobile-brand">
+
+              <img
+                class="mobile-logo"
+                src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
+                alt=""
+                aria-hidden="true"
+              >
+
+              <div>
+                <span class="mobile-brand-kicker">
+                  WEBSITE PORTAL
+                </span>
+
+                <strong>
+                  S&amp;LP Portal
+                </strong>
+              </div>
+
+            </div>
 
 
-        <form
-          id="loginForm"
-          class="login-form"
-          autocomplete="off"
-          novalidate
-        >
-
-          <label
-            class="form-label"
-            for="passwordInput"
-          >
-            รหัสผ่าน
-          </label>
-
-          <div class="password-field">
-
-            <span
-              class="field-icon"
-              aria-hidden="true"
-            >
+            <span class="security-badge">
               <svg
                 viewBox="0 0 24 24"
-                width="21"
-                height="21"
+                width="15"
+                height="15"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
-                <rect
-                  x="3"
-                  y="11"
-                  width="18"
-                  height="10"
-                  rx="2"
-                ></rect>
-
-                <path
-                  d="M7 11V7a5 5 0 0 1 10 0v4"
-                ></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                <path d="m9 12 2 2 4-4"></path>
               </svg>
+
+              <span>
+                Secure Access
+              </span>
             </span>
 
-            <input
-              id="passwordInput"
-              class="password-input"
-              type="password"
-              inputmode="numeric"
-              autocomplete="current-password"
-              maxlength="100"
-              placeholder="กรอกรหัสผ่าน"
-              aria-describedby="loginMessage"
-              required
+          </div>
+
+
+          <div class="login-copy">
+            <p class="login-eyebrow">
+              ยินดีต้อนรับ
+            </p>
+
+            <h2>
+              เข้าสู่ระบบ
+            </h2>
+
+            <p>
+              กรอกรหัสผ่านที่ได้รับเพื่อเข้าใช้งานเว็บไซต์ภายใน
+            </p>
+          </div>
+
+
+          <form
+            id="loginForm"
+            class="login-form"
+            autocomplete="off"
+            novalidate
+          >
+
+            <label
+              class="form-label"
+              for="passwordInput"
             >
+              รหัสผ่าน
+            </label>
+
+            <div class="password-field">
+
+              <span
+                class="field-icon"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="21"
+                  height="21"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="10"
+                    rx="2"
+                  ></rect>
+
+                  <path
+                    d="M7 11V7a5 5 0 0 1 10 0v4"
+                  ></path>
+                </svg>
+              </span>
+
+              <input
+                id="passwordInput"
+                class="password-input"
+                type="password"
+                inputmode="numeric"
+                autocomplete="current-password"
+                maxlength="100"
+                placeholder="กรอกรหัสผ่าน"
+                aria-describedby="loginMessage"
+                required
+              >
+
+              <button
+                id="togglePasswordButton"
+                class="toggle-password-button"
+                type="button"
+                aria-label="แสดงรหัสผ่าน"
+                title="แสดงหรือซ่อนรหัสผ่าน"
+              >
+                <svg
+                  id="eyeOpenIcon"
+                  viewBox="0 0 24 24"
+                  width="21"
+                  height="21"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12"
+                  ></path>
+
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                  ></circle>
+                </svg>
+
+                <svg
+                  id="eyeClosedIcon"
+                  viewBox="0 0 24 24"
+                  width="21"
+                  height="21"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  hidden
+                >
+                  <path d="m3 3 18 18"></path>
+                  <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path>
+                  <path d="M9.9 4.2A10.3 10.3 0 0 1 12 4c6.5 0 10 8 10 8a18.3 18.3 0 0 1-2.1 3.2"></path>
+                  <path d="M6.6 6.6C3.5 8.5 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 5.4-1.6"></path>
+                </svg>
+              </button>
+
+            </div>
+
+            <p
+              id="loginMessage"
+              class="sr-only"
+              role="alert"
+              aria-live="polite"
+            ></p>
+
 
             <button
-              id="togglePasswordButton"
-              class="toggle-password-button"
-              type="button"
-              aria-label="แสดงรหัสผ่าน"
-              title="แสดงหรือซ่อนรหัสผ่าน"
+              id="loginButton"
+              class="primary-button login-button"
+              type="submit"
             >
-              <svg
-                id="eyeOpenIcon"
-                viewBox="0 0 24 24"
-                width="21"
-                height="21"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12"
-                ></path>
+              <span id="loginButtonText">
+                เข้าสู่ระบบ
+              </span>
 
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                ></circle>
-              </svg>
-
-              <svg
-                id="eyeClosedIcon"
-                viewBox="0 0 24 24"
-                width="21"
-                height="21"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+              <span
+                id="loginButtonSpinner"
+                class="button-spinner"
+                aria-hidden="true"
                 hidden
+              ></span>
+
+              <svg
+                class="login-button-arrow"
+                viewBox="0 0 24 24"
+                width="19"
+                height="19"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
               >
-                <path d="m3 3 18 18"></path>
-                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path>
-                <path d="M9.9 4.2A10.3 10.3 0 0 1 12 4c6.5 0 10 8 10 8a18.3 18.3 0 0 1-2.1 3.2"></path>
-                <path d="M6.6 6.6C3.5 8.5 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 5.4-1.6"></path>
+                <path d="M5 12h14"></path>
+                <path d="m13 6 6 6-6 6"></path>
               </svg>
             </button>
 
+          </form>
+
+
+          <div class="login-status-grid">
+
+            <div class="status-chip">
+              <span
+                id="systemStatusDot"
+                class="status-dot is-checking"
+                aria-hidden="true"
+              ></span>
+
+              <span id="systemStatusText">
+                กำลังตรวจสอบระบบ
+              </span>
+            </div>
+
+            <div class="status-chip authorized-chip">
+              <svg
+                viewBox="0 0 24 24"
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+              </svg>
+
+              <span>
+                ผู้ได้รับอนุญาตเท่านั้น
+              </span>
+            </div>
+
           </div>
 
-          <p
-            id="loginMessage"
-            class="sr-only"
-            role="alert"
-            aria-live="polite"
-          ></p>
 
+          <p class="login-footnote">
+            S&amp;LP Security &amp; Lossprevention
+          </p>
 
-          <button
-            id="loginButton"
-            class="primary-button login-button"
-            type="submit"
-          >
-            <span id="loginButtonText">
-              เข้าสู่ระบบ
-            </span>
-
-            <span
-              id="loginButtonSpinner"
-              class="button-spinner"
-              aria-hidden="true"
-              hidden
-            ></span>
-          </button>
-
-        </form>
-
-
-        <div class="login-status-grid">
-
-          <div class="status-chip">
-            <span
-              id="systemStatusDot"
-              class="status-dot is-checking"
-              aria-hidden="true"
-            ></span>
-
-            <span id="systemStatusText">
-              กำลังตรวจสอบระบบ
-            </span>
-          </div>
-
-          <div class="status-chip authorized-chip">
-            <svg
-              viewBox="0 0 24 24"
-              width="15"
-              height="15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
-            </svg>
-
-            <span>
-              ผู้ได้รับอนุญาตเท่านั้น
-            </span>
-          </div>
-
-        </div>
+        </section>
 
       </div>
     </section>
