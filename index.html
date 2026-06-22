@@ -44,7 +44,7 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=20260622-5"
+    href="styles.css?v=20260622-6"
   >
 
   <script
@@ -53,17 +53,17 @@
   ></script>
 
   <script
-    src="config.js?v=20260622-5"
+    src="config.js?v=20260622-6"
     defer
   ></script>
 
   <script
-    src="api.js?v=20260622-5"
+    src="api.js?v=20260622-6"
     defer
   ></script>
 
   <script
-    src="app.js?v=20260622-5"
+    src="app.js?v=20260622-6"
     defer
   ></script>
 </head>
@@ -465,22 +465,24 @@
 
           <div class="portal-brand">
 
-            <img
-              id="portalLogo"
-              class="portal-logo"
-              src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
-              alt="S&LP Logo"
-              decoding="async"
-            >
+            <span class="portal-logo-box">
+              <img
+                id="portalLogo"
+                class="portal-logo"
+                src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
+                alt="S&LP Logo"
+                decoding="async"
+              >
+            </span>
 
             <div class="portal-brand-copy">
+              <span class="portal-brand-kicker">
+                WEBSITE PORTAL
+              </span>
+
               <h1 class="portal-brand-title">
                 S&amp;LP Portal
               </h1>
-
-              <p class="portal-brand-subtitle">
-                Security &amp; Lossprevention
-              </p>
             </div>
 
           </div>
@@ -585,22 +587,30 @@
 
       <div class="portal-content">
 
-        <section class="overview-card">
+        <section class="workspace-hero">
 
-          <div class="overview-copy">
-            <p
-              id="welcomeGreeting"
-              class="welcome-eyebrow"
-            >
-              ยินดีต้อนรับ
+          <div class="workspace-copy">
+            <div class="workspace-status">
+              <span class="workspace-status-dot"></span>
+
+              <span>
+                พร้อมใช้งาน
+              </span>
+            </div>
+
+            <p class="workspace-kicker">
+              S&amp;LP WORKSPACE
             </p>
 
-            <h2 class="welcome-title">
-              ระบบงาน S&amp;LP
+            <h2
+              id="welcomeGreeting"
+              class="workspace-title"
+            >
+              ยินดีต้อนรับ
             </h2>
 
-            <p class="welcome-description">
-              เลือกเว็บไซต์ที่ต้องการใช้งาน
+            <p class="workspace-description">
+              เข้าถึงเว็บไซต์และระบบงานทั้งหมดได้จากหน้าเดียว
             </p>
           </div>
 
@@ -610,15 +620,15 @@
             aria-label="สรุปรายการเว็บไซต์"
           >
 
-            <div class="summary-chip">
+            <article class="summary-card">
               <span
                 class="summary-icon"
                 aria-hidden="true"
               >
                 <svg
                   viewBox="0 0 24 24"
-                  width="19"
-                  height="19"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
@@ -634,7 +644,7 @@
 
               <span class="summary-copy">
                 <span class="summary-label">
-                  เว็บไซต์
+                  เว็บไซต์ทั้งหมด
                 </span>
 
                 <strong
@@ -644,18 +654,18 @@
                   0
                 </strong>
               </span>
-            </div>
+            </article>
 
 
-            <div class="summary-chip">
+            <article class="summary-card">
               <span
                 class="summary-icon"
                 aria-hidden="true"
               >
                 <svg
                   viewBox="0 0 24 24"
-                  width="19"
-                  height="19"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
@@ -679,7 +689,7 @@
                   0
                 </strong>
               </span>
-            </div>
+            </article>
 
           </div>
 
@@ -688,62 +698,16 @@
 
         <section class="portal-tools">
 
-          <div class="search-row">
+          <div class="tool-heading">
+            <div>
+              <p class="tool-kicker">
+                QUICK ACCESS
+              </p>
 
-            <div
-              class="search-field"
-              aria-label="ค้นหาเว็บไซต์"
-            >
-              <svg
-                class="search-icon"
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
-
-              <input
-                id="searchInput"
-                class="search-input"
-                type="search"
-                placeholder="ค้นหาเว็บไซต์..."
-                autocomplete="off"
-                enterkeyhint="search"
-              >
-
-              <button
-                id="clearSearchButton"
-                class="clear-search-button"
-                type="button"
-                aria-label="ล้างคำค้นหา"
-                title="ล้างคำค้นหา"
-                hidden
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </button>
+              <h3>
+                ค้นหาระบบที่ต้องการ
+              </h3>
             </div>
-
 
             <button
               id="refreshButton"
@@ -771,7 +735,61 @@
                 โหลดใหม่
               </span>
             </button>
+          </div>
 
+
+          <div
+            class="search-field"
+            aria-label="ค้นหาเว็บไซต์"
+          >
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+
+            <input
+              id="searchInput"
+              class="search-input"
+              type="search"
+              placeholder="ค้นหาชื่อเว็บไซต์ หมวดหมู่ หรือลิงก์..."
+              autocomplete="off"
+              enterkeyhint="search"
+            >
+
+            <button
+              id="clearSearchButton"
+              class="clear-search-button"
+              type="button"
+              aria-label="ล้างคำค้นหา"
+              title="ล้างคำค้นหา"
+              hidden
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="17"
+                height="17"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
           </div>
 
 
@@ -798,9 +816,15 @@
         <section class="website-list-section">
 
           <div class="website-list-header">
-            <h3 class="website-list-title">
-              รายการเว็บไซต์
-            </h3>
+            <div>
+              <p class="website-list-kicker">
+                APPLICATIONS
+              </p>
+
+              <h3 class="website-list-title">
+                รายการเว็บไซต์
+              </h3>
+            </div>
 
             <p
               id="resultCountText"
@@ -918,7 +942,13 @@
 
 
       <footer class="portal-footer">
-        S&amp;LP Security &amp; Lossprevention
+        <span>
+          S&amp;LP Security &amp; Lossprevention
+        </span>
+
+        <span>
+          Website Portal
+        </span>
       </footer>
 
     </section>
