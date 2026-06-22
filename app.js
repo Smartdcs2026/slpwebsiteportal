@@ -1,6 +1,6 @@
 /************************************************************
  * app.js
- * S&LP Website Portal
+ * S&LP Website Portal — Compact Main V7
  *
  * ใช้งานร่วมกับ:
  * - config.js
@@ -1471,37 +1471,8 @@
     );
 
 
-    const footer =
-      document.createElement(
-        'div'
-      );
-
-    footer.className =
-      'website-card-footer';
-
-
-    const button =
-      document.createElement(
-        'button'
-      );
-
-    button.type =
-      'button';
-
-    button.className =
-      'website-open-button';
-
-    button.textContent =
-      'เปิดใช้งาน';
-
-
-    footer.appendChild(
-      button
-    );
-
-    card.append(
-      main,
-      footer
+    card.appendChild(
+      main
     );
 
     return card;
