@@ -1,7 +1,8 @@
 /************************************************************
  * styles.css
  * S&LP Website Portal
- * Mobile-first redesign
+ * Mobile-first compact redesign
+ * จัดข้อมูลหลายรายการให้อยู่ในแถวเดียวกันเมื่อพื้นที่เพียงพอ
  ************************************************************/
 
 :root {
@@ -792,9 +793,9 @@ a:focus-visible {
 
   margin: 0 auto;
   padding:
-    14px
     12px
-    calc(28px + var(--safe-bottom));
+    10px
+    calc(26px + var(--safe-bottom));
 }
 
 
@@ -803,8 +804,8 @@ a:focus-visible {
  ************************************************************/
 
 .overview-card {
-  margin-bottom: 12px;
-  padding: 16px;
+  margin-bottom: 10px;
+  padding: 13px;
 
   background:
     linear-gradient(
@@ -820,7 +821,7 @@ a:focus-visible {
 }
 
 .overview-copy {
-  margin-bottom: 13px;
+  margin-bottom: 10px;
 }
 
 .welcome-eyebrow {
@@ -923,11 +924,11 @@ a:focus-visible {
 
   margin:
     0
-    -12px
-    14px;
+    -10px
+    12px;
   padding:
+    9px
     10px
-    12px
     7px;
 
   background:
@@ -1111,7 +1112,12 @@ a:focus-visible {
 }
 
 .website-list-header {
-  margin-bottom: 9px;
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .website-list-title {
@@ -1132,18 +1138,20 @@ a:focus-visible {
 .website-grid {
   display: grid;
   grid-template-columns:
-    minmax(0, 1fr);
-  gap: 9px;
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 
 /************************************************************
  * WEBSITE CARD
+ * มือถือแสดง 2 การ์ดต่อแถว
  ************************************************************/
 
 .website-card {
   position: relative;
   min-width: 0;
+  min-height: 170px;
   overflow: hidden;
 
   display: flex;
@@ -1152,7 +1160,7 @@ a:focus-visible {
   background: #ffffff;
 
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 15px;
 
   box-shadow: var(--shadow-sm);
 
@@ -1179,23 +1187,29 @@ a:focus-visible {
 }
 
 .website-card:active {
-  transform: scale(0.992);
+  transform: scale(0.988);
 }
 
 .website-card-main {
   min-width: 0;
   padding:
-    12px
     11px
     9px
-    14px;
+    7px
+    12px;
 
   display: grid;
   grid-template-columns:
-    48px
+    38px
     minmax(0, 1fr);
-  column-gap: 11px;
+  grid-template-rows:
+    auto
+    auto
+    auto;
+  column-gap: 8px;
   align-items: start;
+
+  flex: 1;
 }
 
 .website-card-top {
@@ -1207,12 +1221,11 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
 }
 
 .website-card-icon {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
 
   display: flex;
   align-items: center;
@@ -1230,35 +1243,16 @@ a:focus-visible {
       var(--primary-soft)
     );
 
-  border-radius: 13px;
+  border-radius: 11px;
 }
 
 .website-card-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .website-card-arrow {
-  width: 28px;
-  height: 28px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color:
-    var(
-      --card-color,
-      var(--primary)
-    );
-
-  background:
-    var(
-      --card-background,
-      var(--primary-soft)
-    );
-
-  border-radius: 9px;
+  display: none;
 }
 
 .website-card-category {
@@ -1269,8 +1263,8 @@ a:focus-visible {
 
   max-width: 100%;
 
-  margin-bottom: 5px;
-  padding: 3px 7px;
+  margin-bottom: 4px;
+  padding: 3px 6px;
 
   color:
     var(
@@ -1302,15 +1296,15 @@ a:focus-visible {
   margin: 0;
 
   color: var(--navy);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 820;
-  line-height: 1.4;
+  line-height: 1.35;
 
   overflow: hidden;
   overflow-wrap: anywhere;
 
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 }
 
 .website-card-link {
@@ -1320,8 +1314,8 @@ a:focus-visible {
   margin-top: 4px;
 
   color: var(--light);
-  font-size: 9px;
-  line-height: 1.3;
+  font-size: 8px;
+  line-height: 1.25;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1331,16 +1325,16 @@ a:focus-visible {
 .website-card-footer {
   padding:
     0
-    11px
-    11px
-    73px;
+    8px
+    9px
+    11px;
 }
 
 .website-open-button {
   width: 100%;
-  min-height: 36px;
+  min-height: 33px;
 
-  padding: 8px 10px;
+  padding: 7px 8px;
 
   display: inline-flex;
   align-items: center;
@@ -1358,12 +1352,11 @@ a:focus-visible {
       var(--primary-soft)
     );
 
-  border-radius: 10px;
+  border-radius: 9px;
 
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
 }
-
 
 /************************************************************
  * CARD THEMES
@@ -1872,6 +1865,102 @@ a:focus-visible {
 
 
 /************************************************************
+ * หน้าจอมือถือขนาดเล็กมาก
+ ************************************************************/
+
+@media (max-width: 359px) {
+  .portal-header-inner {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  .portal-content {
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+
+  .portal-tools {
+    margin-right: -7px;
+    margin-left: -7px;
+
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+
+  .website-grid {
+    gap: 6px;
+  }
+
+  .website-card {
+    min-height: 165px;
+    border-radius: 13px;
+  }
+
+  .website-card-main {
+    padding:
+      9px
+      7px
+      6px
+      10px;
+
+    grid-template-columns:
+      34px
+      minmax(0, 1fr);
+
+    column-gap: 6px;
+  }
+
+  .website-card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .website-card-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .website-card-name {
+    font-size: 11px;
+  }
+
+  .website-card-category,
+  .website-card-link {
+    font-size: 7px;
+  }
+
+  .website-card-footer {
+    padding:
+      0
+      7px
+      8px
+      10px;
+  }
+
+  .website-open-button {
+    min-height: 31px;
+    font-size: 9px;
+  }
+
+  .summary-chip {
+    padding-right: 7px;
+    padding-left: 7px;
+    gap: 6px;
+  }
+
+  .summary-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .summary-value {
+    font-size: 17px;
+  }
+}
+
+
+/************************************************************
  * 420px+
  ************************************************************/
 
@@ -1882,16 +1971,16 @@ a:focus-visible {
   }
 
   .portal-content {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .portal-tools {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-right: -14px;
+    margin-left: -14px;
 
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .user-info,
@@ -1979,9 +2068,42 @@ a:focus-visible {
 
   .website-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(3, minmax(0, 1fr));
 
-    gap: 11px;
+    gap: 10px;
+  }
+
+  .website-card {
+    min-height: 178px;
+  }
+
+  .website-card-name {
+    font-size: 13px;
+  }
+
+  .website-card-arrow {
+    width: 27px;
+    height: 27px;
+
+    margin-top: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color:
+      var(
+        --card-color,
+        var(--primary)
+      );
+
+    background:
+      var(
+        --card-background,
+        var(--primary-soft)
+      );
+
+    border-radius: 8px;
   }
 }
 
@@ -2016,9 +2138,9 @@ a:focus-visible {
 
   .website-grid {
     grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+      repeat(4, minmax(0, 1fr));
 
-    gap: 13px;
+    gap: 12px;
   }
 
   .website-card:hover {
