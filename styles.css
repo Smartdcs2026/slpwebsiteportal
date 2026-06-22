@@ -45,6 +45,22 @@
     env(safe-area-inset-bottom, 0px);
 
   --header-height: 62px;
+
+  --font-body:
+    "Anuphan",
+    "Noto Sans Thai",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --font-display:
+    "Kanit",
+    "Anuphan",
+    "Noto Sans Thai",
+    system-ui,
+    sans-serif;
 }
 
 
@@ -70,14 +86,7 @@ body {
 
   margin: 0;
 
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Thai",
-    Tahoma,
-    sans-serif;
+  font-family: var(--font-body);
 
   color: var(--text);
   background: var(--page);
@@ -148,6 +157,68 @@ input:focus-visible {
   outline-offset: 2px;
 }
 
+
+
+/************************************************************
+ * TYPOGRAPHY
+ ************************************************************/
+
+h1,
+h2,
+h3,
+strong,
+button {
+  font-family: var(--font-display);
+}
+
+input,
+p,
+span,
+label {
+  font-family: var(--font-body);
+}
+
+.visual-title,
+.visual-message h2,
+.login-copy h2,
+.mobile-brand strong,
+.portal-brand-title,
+.compact-title,
+.tool-heading h3,
+.website-list-title {
+  font-family: var(--font-display);
+
+  letter-spacing: -0.015em;
+}
+
+.visual-kicker,
+.login-eyebrow,
+.mobile-brand-kicker,
+.portal-brand-kicker,
+.compact-eyebrow,
+.tool-kicker,
+.website-list-kicker {
+  font-family: var(--font-display);
+
+  letter-spacing: 0.08em;
+}
+
+.website-card-name {
+  font-family: var(--font-display);
+
+  letter-spacing: -0.01em;
+}
+
+.summary-value {
+  font-family: var(--font-display);
+
+  font-variant-numeric: tabular-nums;
+}
+
+.password-input,
+.search-input {
+  font-family: var(--font-body);
+}
 
 /************************************************************
  * LOGIN PAGE
@@ -330,7 +401,7 @@ input:focus-visible {
     rgba(255, 255, 255, 0.72);
 
   font-size: 10px;
-  font-weight: 750;
+  font-weight: 600;
   letter-spacing: 1.3px;
 }
 
@@ -371,7 +442,7 @@ input:focus-visible {
     rgba(255, 255, 255, 0.68);
 
   font-size: 9px;
-  font-weight: 850;
+  font-weight: 700;
   letter-spacing: 1.4px;
 }
 
@@ -381,7 +452,7 @@ input:focus-visible {
   color: #ffffff;
 
   font-size: 31px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.1;
 }
 
@@ -392,7 +463,7 @@ input:focus-visible {
     rgba(255, 255, 255, 0.72);
 
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .visual-message {
@@ -408,7 +479,7 @@ input:focus-visible {
   font-size:
     clamp(32px, 4.5vw, 44px);
 
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.8px;
 }
@@ -521,7 +592,7 @@ input:focus-visible {
   border-radius: 999px;
 
   font-size: 10px;
-  font-weight: 750;
+  font-weight: 600;
 }
 
 .login-copy {
@@ -534,7 +605,7 @@ input:focus-visible {
 
   color: var(--primary);
   font-size: 11px;
-  font-weight: 850;
+  font-weight: 700;
   letter-spacing: 0.3px;
 }
 
@@ -544,7 +615,7 @@ input:focus-visible {
   color: var(--navy);
 
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.15;
 }
 
@@ -608,7 +679,7 @@ input:focus-visible {
   border-radius: 15px;
 
   font-size: 16px;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 1px;
 
   outline: none;
@@ -686,7 +757,7 @@ input:focus-visible {
   border-radius: 14px;
 
   font-size: 14px;
-  font-weight: 850;
+  font-weight: 700;
 }
 
 .primary-button {
@@ -849,7 +920,7 @@ input:focus-visible {
   color: var(--light);
 
   font-size: 10px;
-  font-weight: 650;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -935,7 +1006,7 @@ input:focus-visible {
 
   color: var(--primary);
   font-size: 7px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 1px;
 }
 
@@ -944,7 +1015,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.1;
 }
 
@@ -1001,7 +1072,7 @@ input:focus-visible {
   border-radius: 9px;
 
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
 }
 
@@ -1024,7 +1095,7 @@ input:focus-visible {
 
   color: var(--text);
   font-size: 10px;
-  font-weight: 850;
+  font-weight: 700;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1075,7 +1146,7 @@ input:focus-visible {
 
   color: var(--text);
   font-size: 13px;
-  font-weight: 850;
+  font-weight: 700;
   word-break: break-word;
 }
 
@@ -1188,7 +1259,7 @@ input:focus-visible {
 
   color: var(--primary);
   font-size: 7px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 1px;
 }
 
@@ -1197,7 +1268,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.18;
 
   overflow: hidden;
@@ -1260,7 +1331,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 17px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
 }
 
@@ -1471,7 +1542,7 @@ input:focus-visible {
 
   color: var(--primary);
   font-size: 7px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 1px;
 }
 
@@ -1480,7 +1551,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .result-count-text {
@@ -1671,7 +1742,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 11px;
-  font-weight: 850;
+  font-weight: 700;
   line-height: 1.35;
 
   overflow: hidden;
@@ -1772,7 +1843,7 @@ input:focus-visible {
 
   color: var(--navy);
   font-size: 14px;
-  font-weight: 850;
+  font-weight: 700;
 }
 
 .state-card p {
@@ -1831,7 +1902,7 @@ input:focus-visible {
 
   color: var(--light);
   font-size: 8px;
-  font-weight: 650;
+  font-weight: 600;
   text-align: center;
 }
 /************************************************************
@@ -1848,14 +1919,7 @@ input:focus-visible {
 
   border-radius: 20px;
 
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Thai",
-    Tahoma,
-    sans-serif;
+  font-family: var(--font-body);
 
   box-shadow: var(--shadow-lg);
 }
@@ -1869,7 +1933,7 @@ input:focus-visible {
   color: var(--navy);
 
   font-size: 20px;
-  font-weight: 850;
+  font-weight: 700;
   line-height: 1.35;
 }
 
@@ -1939,14 +2003,7 @@ input:focus-visible {
 
   border-radius: 14px;
 
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Thai",
-    Tahoma,
-    sans-serif;
+  font-family: var(--font-body);
 
   box-shadow: var(--shadow-md);
 }
@@ -2065,7 +2122,7 @@ input:focus-visible {
 
     color: var(--primary);
     font-size: 7px;
-    font-weight: 850;
+    font-weight: 700;
     letter-spacing: 1px;
   }
 
@@ -2074,7 +2131,7 @@ input:focus-visible {
 
     color: var(--navy);
     font-size: 14px;
-    font-weight: 900;
+    font-weight: 800;
   }
 
   .security-badge {
@@ -2330,4 +2387,49 @@ input:focus-visible {
 
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/************************************************************
+ * FONT REFINEMENTS V8
+ ************************************************************/
+
+body {
+  font-feature-settings:
+    "kern" 1,
+    "liga" 1;
+
+  text-rendering: optimizeLegibility;
+}
+
+.visual-message p,
+.login-copy > p:last-child,
+.compact-description,
+.website-card-link,
+.result-count-text {
+  line-height: 1.65;
+}
+
+.primary-button,
+.secondary-button,
+.refresh-button,
+.category-tab,
+.website-open-button {
+  letter-spacing: 0;
+}
+
+.slp-swal-popup
+.swal2-title,
+.slp-swal-toast
+.swal2-title {
+  font-family: var(--font-display);
+}
+
+.slp-swal-popup
+.swal2-html-container,
+.slp-swal-popup
+.swal2-confirm,
+.slp-swal-popup
+.swal2-cancel {
+  font-family: var(--font-body);
 }
