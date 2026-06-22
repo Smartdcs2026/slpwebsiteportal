@@ -25,7 +25,6 @@
 
   <title>S&LP Website Portal</title>
 
-  <!-- PWA -->
   <link
     rel="manifest"
     href="manifest.json"
@@ -43,31 +42,14 @@
     href="apple-touch-icon.png"
   >
 
-  <!-- CSS -->
   <link
     rel="stylesheet"
-    href="styles.css"
+    href="styles.css?v=20260622-2"
   >
 </head>
 
 <body>
 
-  <!-- ==========================================
-       พื้นหลังตกแต่ง
-  =========================================== -->
-  <div
-    class="background-decoration"
-    aria-hidden="true"
-  >
-    <span class="background-circle circle-one"></span>
-    <span class="background-circle circle-two"></span>
-    <span class="background-circle circle-three"></span>
-  </div>
-
-
-  <!-- ==========================================
-       LOADING OVERLAY
-  =========================================== -->
   <div
     id="loadingOverlay"
     class="loading-overlay"
@@ -89,39 +71,31 @@
   </div>
 
 
-  <!-- ==========================================
-       APP ROOT
-  =========================================== -->
   <main
     id="appRoot"
     class="app-root"
   >
 
-    <!-- ========================================
-         หน้าเข้าสู่ระบบ
-    ========================================= -->
+    <!-- =====================================================
+         LOGIN
+    ====================================================== -->
     <section
       id="loginView"
       class="login-view"
       aria-labelledby="loginTitle"
     >
-      <div class="login-container">
+      <div class="login-shell">
 
-        <div class="login-card">
+        <div class="login-brand">
+          <img
+            id="loginLogo"
+            class="login-logo"
+            src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
+            alt="S&LP Logo"
+            decoding="async"
+          >
 
-          <!-- โลโก้ -->
-          <div class="login-logo-wrapper">
-            <img
-              id="loginLogo"
-              class="login-logo"
-              src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
-              alt="S&LP Logo"
-              decoding="async"
-            >
-          </div>
-
-          <!-- ชื่อระบบ -->
-          <div class="login-heading">
+          <div class="login-brand-text">
             <p class="login-eyebrow">
               WEBSITE PORTAL
             </p>
@@ -136,21 +110,29 @@
             <p class="login-department">
               S&amp;LP Security &amp; Lossprevention
             </p>
+          </div>
+        </div>
 
-            <p class="login-description">
-              ศูนย์รวมระบบและเว็บไซต์สำหรับการปฏิบัติงาน
+
+        <div class="login-card">
+
+          <div class="login-intro">
+            <h2>
+              เข้าสู่ระบบ
+            </h2>
+
+            <p>
+              ใช้รหัสผ่านที่ได้รับเพื่อเข้าใช้งานเว็บไซต์ภายใน
             </p>
           </div>
 
 
-          <!-- ฟอร์มเข้าสู่ระบบ -->
           <form
             id="loginForm"
             class="login-form"
             autocomplete="off"
             novalidate
           >
-
             <div class="form-group">
 
               <label
@@ -168,8 +150,8 @@
                 >
                   <svg
                     viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
+                    width="21"
+                    height="21"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -212,8 +194,8 @@
                   <svg
                     id="eyeOpenIcon"
                     viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
+                    width="21"
+                    height="21"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -234,8 +216,8 @@
                   <svg
                     id="eyeClosedIcon"
                     viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
+                    width="21"
+                    height="21"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -243,21 +225,10 @@
                     stroke-linejoin="round"
                     hidden
                   >
-                    <path
-                      d="m3 3 18 18"
-                    ></path>
-
-                    <path
-                      d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
-                    ></path>
-
-                    <path
-                      d="M9.9 4.2A10.3 10.3 0 0 1 12 4c6.5 0 10 8 10 8a18.3 18.3 0 0 1-2.1 3.2"
-                    ></path>
-
-                    <path
-                      d="M6.6 6.6C3.5 8.5 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 5.4-1.6"
-                    ></path>
+                    <path d="m3 3 18 18"></path>
+                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path>
+                    <path d="M9.9 4.2A10.3 10.3 0 0 1 12 4c6.5 0 10 8 10 8a18.3 18.3 0 0 1-2.1 3.2"></path>
+                    <path d="M6.6 6.6C3.5 8.5 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 5.4-1.6"></path>
                   </svg>
                 </button>
 
@@ -269,7 +240,6 @@
                 role="alert"
                 aria-live="polite"
               ></p>
-
             </div>
 
 
@@ -292,15 +262,13 @@
                 hidden
               ></span>
             </button>
-
           </form>
 
 
-          <!-- สถานะระบบ -->
           <div class="system-status">
             <span
               id="systemStatusDot"
-              class="status-dot"
+              class="status-dot is-checking"
               aria-hidden="true"
             ></span>
 
@@ -314,11 +282,11 @@
 
         <footer class="login-footer">
           <p>
-            S&amp;LP Security &amp; Lossprevention
+            สำหรับผู้ได้รับอนุญาตเท่านั้น
           </p>
 
           <p class="footer-small">
-            Authorized personnel only
+            S&amp;LP Security &amp; Lossprevention
           </p>
         </footer>
 
@@ -326,30 +294,26 @@
     </section>
 
 
-    <!-- ========================================
-         หน้ารวมเว็บไซต์
-    ========================================= -->
+    <!-- =====================================================
+         PORTAL
+    ====================================================== -->
     <section
       id="portalView"
       class="portal-view"
       hidden
     >
 
-      <!-- ส่วนหัวด้านบน -->
       <header class="portal-header">
         <div class="portal-header-inner">
 
           <div class="portal-brand">
-
-            <div class="portal-logo-wrapper">
-              <img
-                id="portalLogo"
-                class="portal-logo"
-                src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
-                alt="S&LP Logo"
-                decoding="async"
-              >
-            </div>
+            <img
+              id="portalLogo"
+              class="portal-logo"
+              src="https://lh5.googleusercontent.com/d/1HicYHV18UaA5y4GFyHJaG9aNI-qjIzIY"
+              alt="S&LP Logo"
+              decoding="async"
+            >
 
             <div class="portal-brand-text">
               <h1 class="portal-brand-title">
@@ -360,11 +324,9 @@
                 Security &amp; Lossprevention
               </p>
             </div>
-
           </div>
 
 
-          <!-- ผู้ใช้งาน -->
           <div class="user-area">
 
             <button
@@ -398,8 +360,8 @@
               <svg
                 class="user-chevron"
                 viewBox="0 0 24 24"
-                width="18"
-                height="18"
+                width="17"
+                height="17"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
@@ -412,7 +374,6 @@
             </button>
 
 
-            <!-- เมนูผู้ใช้ -->
             <div
               id="userDropdown"
               class="user-dropdown"
@@ -446,17 +407,9 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M10 17l5-5-5-5"
-                  ></path>
-
-                  <path
-                    d="M15 12H3"
-                  ></path>
-
-                  <path
-                    d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"
-                  ></path>
+                  <path d="M10 17l5-5-5-5"></path>
+                  <path d="M15 12H3"></path>
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
                 </svg>
 
                 <span>
@@ -471,13 +424,11 @@
       </header>
 
 
-      <!-- เนื้อหาหลัก -->
       <div class="portal-content">
 
-        <!-- คำต้อนรับ -->
-        <section class="welcome-section">
+        <section class="overview-card">
 
-          <div>
+          <div class="overview-copy">
             <p
               id="welcomeGreeting"
               class="welcome-eyebrow"
@@ -490,207 +441,103 @@
             </h2>
 
             <p class="welcome-description">
-              เลือกระบบที่ต้องการใช้งานจากรายการด้านล่าง
+              ค้นหาและเปิดระบบที่ต้องการได้จากหน้าเดียว
             </p>
           </div>
 
-          <button
-            id="refreshButton"
-            class="refresh-button"
-            type="button"
-            title="โหลดรายการใหม่"
+
+          <section
+            class="portal-summary"
+            aria-label="สรุปรายการเว็บไซต์"
           >
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path
-                d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5"
-              ></path>
+            <div class="summary-chip">
+              <span
+                class="summary-icon"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+              </span>
 
-              <path
-                d="M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5"
-              ></path>
-            </svg>
+              <span class="summary-info">
+                <span class="summary-label">
+                  เว็บไซต์
+                </span>
 
-            <span class="refresh-text">
-              โหลดใหม่
-            </span>
-          </button>
+                <strong
+                  id="totalWebsiteCount"
+                  class="summary-value"
+                >
+                  0
+                </strong>
+              </span>
+            </div>
+
+
+            <div class="summary-chip">
+              <span
+                class="summary-icon"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 7h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path>
+                  <path d="M3 7V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </span>
+
+              <span class="summary-info">
+                <span class="summary-label">
+                  หมวดหมู่
+                </span>
+
+                <strong
+                  id="totalCategoryCount"
+                  class="summary-value"
+                >
+                  0
+                </strong>
+              </span>
+            </div>
+          </section>
 
         </section>
 
 
-        <!-- สรุปจำนวนเว็บไซต์ -->
-        <section
-          class="portal-summary"
-          aria-label="สรุปรายการเว็บไซต์"
-        >
+        <section class="portal-tools">
 
-          <div class="summary-card">
-            <span
-              class="summary-icon"
-              aria-hidden="true"
+          <div class="search-row">
+
+            <div
+              class="search-field"
+              aria-label="ค้นหาเว็บไซต์"
             >
               <svg
+                class="search-icon"
                 viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect
-                  x="3"
-                  y="3"
-                  width="7"
-                  height="7"
-                  rx="1"
-                ></rect>
-
-                <rect
-                  x="14"
-                  y="3"
-                  width="7"
-                  height="7"
-                  rx="1"
-                ></rect>
-
-                <rect
-                  x="3"
-                  y="14"
-                  width="7"
-                  height="7"
-                  rx="1"
-                ></rect>
-
-                <rect
-                  x="14"
-                  y="14"
-                  width="7"
-                  height="7"
-                  rx="1"
-                ></rect>
-              </svg>
-            </span>
-
-            <span class="summary-info">
-              <span class="summary-label">
-                เว็บไซต์ทั้งหมด
-              </span>
-
-              <strong
-                id="totalWebsiteCount"
-                class="summary-value"
-              >
-                0
-              </strong>
-            </span>
-          </div>
-
-
-          <div class="summary-card">
-            <span
-              class="summary-icon"
-              aria-hidden="true"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M3 7h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"
-                ></path>
-
-                <path
-                  d="M3 7V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v2"
-                ></path>
-              </svg>
-            </span>
-
-            <span class="summary-info">
-              <span class="summary-label">
-                หมวดหมู่
-              </span>
-
-              <strong
-                id="totalCategoryCount"
-                class="summary-value"
-              >
-                0
-              </strong>
-            </span>
-          </div>
-
-        </section>
-
-
-        <!-- ค้นหา -->
-        <section
-          class="search-section"
-          aria-label="ค้นหาเว็บไซต์"
-        >
-          <div class="search-field">
-
-            <svg
-              class="search-icon"
-              viewBox="0 0 24 24"
-              width="22"
-              height="22"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              ></circle>
-
-              <path
-                d="m21 21-4.3-4.3"
-              ></path>
-            </svg>
-
-            <input
-              id="searchInput"
-              class="search-input"
-              type="search"
-              placeholder="ค้นหาชื่อเว็บไซต์..."
-              autocomplete="off"
-              enterkeyhint="search"
-            >
-
-            <button
-              id="clearSearchButton"
-              class="clear-search-button"
-              type="button"
-              aria-label="ล้างคำค้นหา"
-              title="ล้างคำค้นหา"
-              hidden
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="18"
-                height="18"
+                width="21"
+                height="21"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
@@ -698,20 +545,75 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
               </svg>
+
+              <input
+                id="searchInput"
+                class="search-input"
+                type="search"
+                placeholder="ค้นหาชื่อเว็บไซต์..."
+                autocomplete="off"
+                enterkeyhint="search"
+              >
+
+              <button
+                id="clearSearchButton"
+                class="clear-search-button"
+                type="button"
+                aria-label="ล้างคำค้นหา"
+                title="ล้างคำค้นหา"
+                hidden
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M18 6 6 18"></path>
+                  <path d="m6 6 12 12"></path>
+                </svg>
+              </button>
+            </div>
+
+
+            <button
+              id="refreshButton"
+              class="refresh-button"
+              type="button"
+              aria-label="โหลดรายการใหม่"
+              title="โหลดรายการใหม่"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5"></path>
+                <path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5"></path>
+              </svg>
+
+              <span class="refresh-text">
+                โหลดใหม่
+              </span>
             </button>
 
           </div>
-        </section>
 
 
-        <!-- ปุ่มหมวดหมู่ -->
-        <section
-          class="category-section"
-          aria-label="หมวดหมู่เว็บไซต์"
-        >
           <div
             id="categoryTabs"
             class="category-tabs"
@@ -728,159 +630,134 @@
               ทั้งหมด
             </button>
           </div>
+
         </section>
 
 
-        <!-- หัวข้อรายการ -->
-        <section class="website-list-header">
+        <section class="website-list-section">
 
-          <div>
-            <h3 class="website-list-title">
-              รายการเว็บไซต์
+          <div class="website-list-header">
+            <div>
+              <h3 class="website-list-title">
+                รายการเว็บไซต์
+              </h3>
+
+              <p
+                id="resultCountText"
+                class="result-count-text"
+              >
+                กำลังโหลดข้อมูล
+              </p>
+            </div>
+          </div>
+
+
+          <section
+            id="websiteLoadingState"
+            class="state-card"
+          >
+            <div class="state-spinner"></div>
+
+            <h3>
+              กำลังโหลดรายการเว็บไซต์
             </h3>
 
-            <p
-              id="resultCountText"
-              class="result-count-text"
-            >
-              กำลังโหลดข้อมูล
+            <p>
+              กรุณารอสักครู่
             </p>
-          </div>
-
-        </section>
+          </section>
 
 
-        <!-- สถานะกำลังโหลดรายการ -->
-        <section
-          id="websiteLoadingState"
-          class="state-card"
-        >
-          <div class="state-spinner"></div>
-
-          <h3>
-            กำลังโหลดรายการเว็บไซต์
-          </h3>
-
-          <p>
-            กรุณารอสักครู่
-          </p>
-        </section>
+          <section
+            id="websiteGrid"
+            class="website-grid"
+            aria-live="polite"
+            hidden
+          ></section>
 
 
-        <!-- รายการเว็บไซต์ -->
-        <section
-          id="websiteGrid"
-          class="website-grid"
-          aria-live="polite"
-          hidden
-        >
-          <!-- app.js จะสร้างการ์ดเว็บไซต์ตรงนี้ -->
-        </section>
-
-
-        <!-- ไม่พบรายการ -->
-        <section
-          id="emptyState"
-          class="state-card"
-          hidden
-        >
-          <div
-            class="state-icon"
-            aria-hidden="true"
+          <section
+            id="emptyState"
+            class="state-card"
+            hidden
           >
-            <svg
-              viewBox="0 0 24 24"
-              width="46"
-              height="46"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <div
+              class="state-icon"
+              aria-hidden="true"
             >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              ></circle>
+              <svg
+                viewBox="0 0 24 24"
+                width="42"
+                height="42"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+                <path d="M8 11h6"></path>
+              </svg>
+            </div>
 
-              <path
-                d="m21 21-4.3-4.3"
-              ></path>
+            <h3 id="emptyStateTitle">
+              ไม่พบเว็บไซต์
+            </h3>
 
-              <path
-                d="M8 11h6"
-              ></path>
-            </svg>
-          </div>
-
-          <h3 id="emptyStateTitle">
-            ไม่พบเว็บไซต์
-          </h3>
-
-          <p id="emptyStateMessage">
-            ลองเปลี่ยนคำค้นหาหรือเลือกหมวดหมู่อื่น
-          </p>
-        </section>
+            <p id="emptyStateMessage">
+              ลองเปลี่ยนคำค้นหาหรือเลือกหมวดหมู่อื่น
+            </p>
+          </section>
 
 
-        <!-- โหลดข้อมูลไม่สำเร็จ -->
-        <section
-          id="errorState"
-          class="state-card error-state"
-          hidden
-        >
-          <div
-            class="state-icon error-icon"
-            aria-hidden="true"
+          <section
+            id="errorState"
+            class="state-card error-state"
+            hidden
           >
-            <svg
-              viewBox="0 0 24 24"
-              width="46"
-              height="46"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <div
+              class="state-icon error-icon"
+              aria-hidden="true"
             >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              ></circle>
+              <svg
+                viewBox="0 0 24 24"
+                width="42"
+                height="42"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 8v4"></path>
+                <path d="M12 16h.01"></path>
+              </svg>
+            </div>
 
-              <path
-                d="M12 8v4"
-              ></path>
+            <h3>
+              โหลดข้อมูลไม่สำเร็จ
+            </h3>
 
-              <path
-                d="M12 16h.01"
-              ></path>
-            </svg>
-          </div>
+            <p id="errorStateMessage">
+              กรุณาลองใหม่อีกครั้ง
+            </p>
 
-          <h3>
-            โหลดข้อมูลไม่สำเร็จ
-          </h3>
+            <button
+              id="retryButton"
+              class="secondary-button"
+              type="button"
+            >
+              ลองใหม่
+            </button>
+          </section>
 
-          <p id="errorStateMessage">
-            กรุณาลองใหม่อีกครั้ง
-          </p>
-
-          <button
-            id="retryButton"
-            class="secondary-button"
-            type="button"
-          >
-            ลองใหม่
-          </button>
         </section>
 
       </div>
 
 
-      <!-- Footer -->
       <footer class="portal-footer">
         <p>
           S&amp;LP Security &amp; Lossprevention
@@ -896,9 +773,6 @@
   </main>
 
 
-  <!-- ==========================================
-       TOAST MESSAGE
-  =========================================== -->
   <div
     id="toastContainer"
     class="toast-container"
@@ -907,9 +781,6 @@
   ></div>
 
 
-  <!-- ==========================================
-       CONFIRM MODAL
-  =========================================== -->
   <div
     id="confirmModal"
     class="modal-backdrop"
@@ -929,25 +800,17 @@
       >
         <svg
           viewBox="0 0 24 24"
-          width="34"
-          height="34"
+          width="32"
+          height="32"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <path
-            d="M10 17l5-5-5-5"
-          ></path>
-
-          <path
-            d="M15 12H3"
-          ></path>
-
-          <path
-            d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"
-          ></path>
+          <path d="M10 17l5-5-5-5"></path>
+          <path d="M15 12H3"></path>
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
         </svg>
       </div>
 
@@ -989,13 +852,9 @@
   </div>
 
 
-  <!-- ==========================================
-       JAVASCRIPT
-       ต้องเรียงลำดับตามนี้
-  =========================================== -->
-  <script src="config.js"></script>
-  <script src="api.js"></script>
-  <script src="app.js"></script>
+  <script src="config.js?v=20260622-2"></script>
+  <script src="api.js?v=20260622-2"></script>
+  <script src="app.js?v=20260622-2"></script>
 
   <noscript>
     <div class="noscript-message">
